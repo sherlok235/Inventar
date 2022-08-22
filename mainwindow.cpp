@@ -1,78 +1,51 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <fstream>
+#include "custombutton.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     MyList = new QListWidget;
-    mainLayout = new QVBoxLayout;
-    exemplar = new item(MyList);
+
     ui->setupUi(this);
 
-    db= QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("mydb.sqlite");
-    this->initDb();
+    this->PutData();
 
-    //MyList.add
-    MyList->addItem(exemplar);
-    exemplar->setSizeHint(QSize(125,24));
-  //  exemplar->btn->setSizeIncrement(125,25);
-   // exemplar->btn->show();
-    mainLayout->addWidget(MyList);
-   // MyList->addItem(&it);
-    ui->centralwidget->setLayout(mainLayout);
-    db.close();
+    MyList->setSpacing(0);
+    MyList->setParent(this);
+    MyList->setContentsMargins(0,0,0,0);
+    MyList->setMinimumSize(this->size());
+    MyList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    MyList->verticalScrollBar()->hide();
+
+
 }
-void MainWindow::initDb(){
-    std::fstream obj("somename.txt");
-    db.open();
-    QSqlQuery q ;
-    QString data="" ;
+void MainWindow::PutData(){
+//    QString * data=new QString(" ") ;
+//    bool bo = IDB.addData(90097808,"lllko","ouitkt tt",98,"puoou//y/uu//maaaaama");
 
-    q.exec("insert into items values(?,?,?, ?,?)");
-    q.bindValue(0,908890);
-    q.bindValue(1,"kolo");
-    q.bindValue(2,"jucari pentru copii");
-    q.bindValue(3,65);
-    q.bindValue(4,"tottr/titro/rorj");
-    q.exec();
 
-    q.exec("insert into items values(?,?,?, ?,?)");
-    q.bindValue(0,934890);
-    q.bindValue(1,"apa");
-    q.bindValue(2,"apa distilata");
-    q.bindValue(3,95);
-    q.bindValue(4,"tottr/titro/rorj");
-    q.exec();
-    q.exec(".save mydb.sqlite");
+//    data->append( QString::number(bo )+IDB.getAllData()->at(0).name+"  ");
+//    data->append( IDB.getAllData( )->at(0).description + "pol");
+    //exemplar->setText(*data);
 
-    q.exec("select * from items");
-    if( q.isValid()){
-        exemplar->setText(q.executedQuery());
-    }
-      exemplar->setText(db.lastError().text());
-    while(q.next()){
-       data+=q.value(0).toString()+"  " +q.value(1).toString()+"\n";
-       data+=q.value(2).toString()+"  "+ q.value(3).toString()+"\n";
-       data+=q.value(4).toString()+"\n";
+   const QVector<Data> * myData ;
 
-    }
+   myData = IDB.getAllData();
+   //const  QVector<Data>::const_iterator it;
+   for( QVector<Data>::const_iterator it = myData->cbegin(); it<myData->end();it++){
+        QListWidgetItem * itemN = new QListWidgetItem() ;
+        itemN->setSizeHint(QSize(400,90));
+      // mainLayout->addWidget(new CustomButton(QString(std::string("poll.jpg").c_str()),it->name,QString(std::to_string(it->code).c_str()),it->description,it->quantity));
+       MyList->addItem(itemN);
+       MyList->setItemWidget(itemN,new CustomButton(QString(std::string("img/poll.jpg").c_str()),it->name,QString(std::to_string(it->code).c_str()),it->description,it->quantity));
 
-    if(!q.lastError().text().isEmpty()){
-        data = q.lastError().text();
-    }
-    obj<<data.toStdString();
-    exemplar->setText(data);
-
-    q.clear();
-    db.close();
+   }
 
 }
 MainWindow::~MainWindow()
 {
-
     delete ui;
 }
 

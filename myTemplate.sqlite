@@ -1,0 +1,4 @@
+ create table items(id integer primary key , name text,descriere text,cantitate integer,i_path text);
+ insert into items values(5665,"alcool","vodca hai davai", 45,"pokj//fhgnfn//rr");
+ insert into items values(566985,"alcool","vodca hai davai", 45,"pokj//fhgnfn//rr");
+ 
