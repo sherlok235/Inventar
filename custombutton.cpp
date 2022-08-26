@@ -74,6 +74,7 @@ CustomButton::CustomButton(QString ImgPath , QString Name , QString Code , QStri
 
 void CustomButton::setImage(QString image_path)
 {
+       AvatarImg = image_path;
 
        QPixmap target = QPixmap(QSize(66,66));
         target.fill(Qt::transparent);
@@ -109,4 +110,29 @@ void CustomButton::setDescription_Info(QString name,QString code, QString descri
 void CustomButton::setQuantity(int quantity = 0)
 {
     info_quantity->setNum(quantity);
+}
+
+QString CustomButton::getName()
+{
+    return name->text();
+}
+
+QString CustomButton::getDescription()
+{
+    return info_description->text();
+}
+
+QString CustomButton::getCode()
+{
+    return info_code->text();
+}
+
+QString CustomButton::getQuantity()
+{
+    return info_quantity->text();
+}
+
+QString CustomButton::getImgPath()
+{
+    return AvatarImg;
 }

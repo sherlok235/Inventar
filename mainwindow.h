@@ -8,12 +8,12 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QScrollBar>
-#include <QListView>
+#include <QFileInfo>
 #include <QLayout>
 #include <QLabel>
-#include <QDebug>
 
 #include "dbinterface.h"
+#include "showorsetdata.h"
 
 
 
@@ -28,10 +28,16 @@ class MainWindow : public QMainWindow
 
     DBInterface IDB;
     QListWidget * MyList;
-    QVBoxLayout * mainLayout;
+    ShowOrSetData * secondWindow = nullptr;
 public:
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+
+    void ShowInfoWindow();
+    void UpdateData(CustomButton * button);
 
 private:
     Ui::MainWindow *ui;

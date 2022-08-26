@@ -16,13 +16,16 @@ struct Data{
 };
 class DBInterface
 {
-    QVector<Data> * AllData;
+    QVector<Data> * AllData = nullptr;
     QSqlDatabase db;
 public:
     DBInterface();
     bool addData(const int code,const QString name,const QString description,const int quantity,const QString pathImg);
     bool addData(const Data MyData);
     const QVector<Data> * getAllData (void);
+    void UpdateDB();
+    void UpdateRow(Data * change);
+    void DeleteRow(int idRow);
     ~DBInterface();
 
 };

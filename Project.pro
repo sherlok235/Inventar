@@ -13,16 +13,19 @@ SOURCES += \
     custombutton.cpp \
     dbinterface.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    showorsetdata.cpp
 
 HEADERS += \
     custombutton.h \
     dbinterface.h \
-    mainwindow.h
+    mainwindow.h \
+    showorsetdata.h
 
 #RESOURCES+= \code.png
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    showorsetdata.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
