@@ -1,12 +1,26 @@
-#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "custombutton.h"
+#include "mainwindow.h"
+
+#include <QRect>
+#include <QRegion>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     MyList = new QListWidget;
+    AddButon = new QPushButton("Button",MyList);
+   // DeletButton = new QPushButton(this);
+
+    AddButon->setFixedSize(70,70);
+    AddButon->setGeometry(QRect(this->width()-5,this->height()-10,70,70));
+    //DeletButton->setFixedSize(50,50);
+    QRect rect(0,0,69,69);
+    QRegion region(rect,QRegion::Ellipse);
+    AddButon->setMask(region);
+
+
+    UpadteButtonData = new Data;
 
     ui->setupUi(this);
 
@@ -19,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     MyList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     MyList->verticalScrollBar()->hide();
 
-  //  QObject::connect(secondWindow,&ShowOrSetData::saveBtn_signal,this,&MainWindow::UpdateData);
+
 
 }
 void MainWindow::PutData(){
@@ -49,30 +63,36 @@ void MainWindow::ShowInfoWindow()
 {
     CustomButton * button = static_cast<CustomButton *>(QObject::sender());
     secondWindow = new ShowOrSetData(button->getName(),button->getCode(),button->getDescription()
-                                           ,button->getQuantity(), button->getImgPath());
-     secondWindow->setModal(true);
-     QObject::connect(secondWindow,&ShowOrSetData::saveBtn_signal,this,&MainWindow::UpdateData);
-
-     secondWindow->exec();
-     delete secondWindow;
+                                          ,button->getQuantity(), button->getImgPath());
+    secondWindow->setModal(true);
+    QObject::connect(secondWindow,&ShowOrSetData::saveBtn_signal,this,&MainWindow::UpdateData);
+    secondWindow->exec();
+    SetButtonD(button,secondWindow->getData());
+    delete secondWindow;
 }
 
-void MainWindow::UpdateData(CustomButton  * button)
+void MainWindow::UpdateData(Data * data)
 {
-    Data * data = new Data ;
-    data->code =button->getCode().toInt();
-    data->description = button->getDescription();
-    data->name = button->getName();
-    data->pathImg = button->getImgPath();
-    data->quantity = button->getQuantity().toInt();
-    IDB.UpdateRow(data);
-    delete data;
+
+    UpadteButtonData->code = data->code;
+    UpadteButtonData->description = data->description;
+    UpadteButtonData->name = data->name;
+    UpadteButtonData->pathImg = data->pathImg;
+    UpadteButtonData->quantity = data->quantity;
+    IDB.UpdateRow(UpadteButtonData);
+
+}
+
+void MainWindow::SetButtonD(CustomButton *button, Data *data)
+{
+    button->setImage(data->pathImg);
+    button->setDescription_Info(data->name,QString(std::to_string(data->code).c_str()),data->description);
+    button->setQuantity(data->quantity);
 }
 
 MainWindow::~MainWindow()
 {
-    //MyList->clear();
-    //delete MyList;
+    delete UpadteButtonData;
     delete ui;
 }
 

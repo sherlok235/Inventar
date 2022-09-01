@@ -7,12 +7,11 @@ ShowOrSetData::ShowOrSetData(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ShowOrSetData)
 {
-    button = new CustomButton;
+    mydata = new Data;
     ui->setupUi(this);
     ui->img->setVisible(false);
     QObject::connect(this->ui->choseButton,SIGNAL(clicked()),this,SLOT(chose()));
     QObject::connect(this->ui->saveButton,SIGNAL(clicked()),this,SLOT(save()));
-    //QObject::connect(this,&ShowOrSetData::saveBtn_signal,this,&MainWindow::UpdateData);
 
 }
 
@@ -28,10 +27,6 @@ ShowOrSetData::ShowOrSetData(QString name, QString code, QString description, QS
 
 }
 
-ShowOrSetData::ShowOrSetData(CustomButton *button)
-{
-this->button = button;
-}
 void ShowOrSetData::chose()
 {
     QString fileName = QFileDialog::getOpenFileName(this,tr("chose"),"",tr("Images(*.png *.jpg *jpeg *bmp *gif)"));
@@ -48,16 +43,33 @@ void ShowOrSetData::chose()
 
 void ShowOrSetData::save()
 {
-    button->setDescription_Info(ui->nameLine->text(),ui->barcodeLine->text(),ui->descriptionLine->text());
-    button->setImage(ChoseImgPath);
-    button->setQuantity(ui->qantityLine->text().toInt());
-    emit saveBtn_signal(this->button);
+    mydata->quantity =  ui->qantityLine->text().toInt();
+    mydata->code = ui->barcodeLine->text().toInt();
+    mydata->description = ui->descriptionLine->text();
+    mydata->name = ui->nameLine->text();
+    if(!QFileInfo::exists(ChoseImgPath)){
+        mydata->pathImg = Pathimg;
+    }else{
+         mydata->pathImg = ChoseImgPath;
+    }
+    emit saveBtn_signal(mydata);
     this->close();
 }
 
 ShowOrSetData::~ShowOrSetData()
 {
+    delete mydata;
     delete ui;
+}
+
+QString ShowOrSetData::getImage()
+{
+    return Pathimg;
+}
+
+Data *ShowOrSetData::getData()
+{
+ return mydata;
 }
 
 

@@ -26,7 +26,6 @@ DBInterface::DBInterface()
 
 bool DBInterface::addData(const int code, const QString name, const QString description, const int quantity, const QString pathImg)
 {
-    std::fstream f ("sometext.txt",std::ios_base::out);//delete////////////////
     bool result =false;
     db.open();
 
@@ -41,10 +40,10 @@ bool DBInterface::addData(const int code, const QString name, const QString desc
         q.clear();
         result = true;
     }
-    f<<q.lastError().text().toStdString();//delete//////////////////////////
+
     q.clear();
     db.close();
-    f.close();//delete ///////////////////////////////////////
+
     return result;
 }
 
@@ -97,6 +96,11 @@ void DBInterface::UpdateRow(Data * change)
 
     q.clear();
     db.close();
+
+}
+
+void DBInterface::DeleteRow(int idRow)
+{
 
 }
 

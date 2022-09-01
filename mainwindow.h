@@ -14,6 +14,7 @@
 
 #include "dbinterface.h"
 #include "showorsetdata.h"
+#include "custombutton.h"
 
 
 
@@ -29,6 +30,8 @@ class MainWindow : public QMainWindow
     DBInterface IDB;
     QListWidget * MyList;
     ShowOrSetData * secondWindow = nullptr;
+    Data * UpadteButtonData;
+    QPushButton * AddButon, * DeletButton;
 public:
 
     MainWindow(QWidget *parent = nullptr);
@@ -37,7 +40,9 @@ public:
 public slots:
 
     void ShowInfoWindow();
-    void UpdateData(CustomButton * button);
+    void UpdateData(Data * data);
+    void SetButtonD(CustomButton * button, Data * data);
+
 
 private:
     Ui::MainWindow *ui;

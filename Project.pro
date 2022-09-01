@@ -1,5 +1,4 @@
 QT       += sql core gui
-#QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +21,6 @@ HEADERS += \
     mainwindow.h \
     showorsetdata.h
 
-#RESOURCES+= \code.png
 FORMS += \
     mainwindow.ui \
     showorsetdata.ui
