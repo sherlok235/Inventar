@@ -7,6 +7,7 @@ ShowOrSetData::ShowOrSetData(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ShowOrSetData)
 {
+    SaveIsCliked = false;
     mydata = new Data;
     ui->setupUi(this);
     ui->img->setVisible(false);
@@ -41,7 +42,7 @@ void ShowOrSetData::chose()
     }
 }
 
-void ShowOrSetData::save()
+ void ShowOrSetData::save()
 {
     mydata->quantity =  ui->qantityLine->text().toInt();
     mydata->code = ui->barcodeLine->text().toInt();
@@ -52,6 +53,7 @@ void ShowOrSetData::save()
     }else{
          mydata->pathImg = ChoseImgPath;
     }
+    emit SendStatusSave(true);
     emit saveBtn_signal(mydata);
     this->close();
 }

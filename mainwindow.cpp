@@ -8,19 +8,25 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    SaveButtonStatus = false;
     MyList = new QListWidget;
-    AddButon = new QPushButton("Button",MyList);
-   // DeletButton = new QPushButton(this);
-
+    AddButon = new QPushButton(MyList);
     AddButon->setFixedSize(70,70);
-    AddButon->setGeometry(QRect(this->width()-5,this->height()-10,70,70));
-    //DeletButton->setFixedSize(50,50);
+    AddButon->setGeometry(QRect(MyList->width()-(-55),MyList->height()-(-25),70,70));
     QRect rect(0,0,69,69);
     QRegion region(rect,QRegion::Ellipse);
     AddButon->setMask(region);
-
-
-    UpadteButtonData = new Data;
+    QImage * img = new QImage;
+    bool Case =  img->load("img/add.png");
+    if (Case){
+        QIcon ic ;
+        ic.addPixmap(QPixmap::fromImage(*img));
+        AddButon->setIcon(ic);
+        AddButon->setIconSize(QSize(69,69));
+    }
+    delete img;
+    connect(AddButon,SIGNAL(clicked()),this, SLOT(ShowAddWindow()));
+    SwapButtonData = new Data;
 
     ui->setupUi(this);
 
@@ -39,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::PutData(){
 
    const QVector<Data> * myData ;
-    QString Pathimg;
+   QString Pathimg;
    myData = IDB.getAllData();
    for( QVector<Data>::const_iterator it = myData->cbegin(); it<myData->end();it++){
        if(!QFileInfo::exists(it->pathImg)){
@@ -66,21 +72,58 @@ void MainWindow::ShowInfoWindow()
                                           ,button->getQuantity(), button->getImgPath());
     secondWindow->setModal(true);
     QObject::connect(secondWindow,&ShowOrSetData::saveBtn_signal,this,&MainWindow::UpdateData);
+    QObject::connect(secondWindow,&ShowOrSetData::SendStatusSave,this,&MainWindow::IsClickedSave);
     secondWindow->exec();
+    if (SaveButtonStatus)
     SetButtonD(button,secondWindow->getData());
     delete secondWindow;
+    SaveButtonStatus = false;
+}
+
+void MainWindow::ShowAddWindow()
+{
+    CustomButton * button = new CustomButton;
+    button->setImage("img/poll.jpg");
+    secondWindow = new AddButtonWindow();
+    secondWindow->setModal(true);
+    QObject::connect(secondWindow,&ShowOrSetData::saveBtn_signal,this,&MainWindow::AddNewData);
+    QObject::connect(secondWindow,&ShowOrSetData::SendStatusSave,this,&MainWindow::IsClickedSave);
+    secondWindow->exec();
+    if (SaveButtonStatus){
+    SetButtonD(button,secondWindow->getData());
+    QListWidgetItem * itemN = new QListWidgetItem() ;
+    itemN->setSizeHint(QSize(400,90));
+    MyList->addItem(itemN);
+    MyList->setItemWidget(itemN,button);
+    QObject::connect(button,SIGNAL(clicked()),this,SLOT(ShowInfoWindow()));
+    SaveButtonStatus = false;
+    }
+    delete secondWindow;
+   // delete button;
+
+
 }
 
 void MainWindow::UpdateData(Data * data)
 {
 
-    UpadteButtonData->code = data->code;
-    UpadteButtonData->description = data->description;
-    UpadteButtonData->name = data->name;
-    UpadteButtonData->pathImg = data->pathImg;
-    UpadteButtonData->quantity = data->quantity;
-    IDB.UpdateRow(UpadteButtonData);
+    SwapButtonData->code = data->code;
+    SwapButtonData->description = data->description;
+    SwapButtonData->name = data->name;
+    SwapButtonData->pathImg = data->pathImg;
+    SwapButtonData->quantity = data->quantity;
+    IDB.UpdateRow(SwapButtonData);
 
+}
+
+void MainWindow::AddNewData(Data *data)
+{
+    SwapButtonData->code = data->code;
+    SwapButtonData->description = data->description;
+    SwapButtonData->name = data->name;
+    SwapButtonData->pathImg = data->pathImg;
+    SwapButtonData->quantity = data->quantity;
+    IDB.addData(*SwapButtonData);
 }
 
 void MainWindow::SetButtonD(CustomButton *button, Data *data)
@@ -90,9 +133,14 @@ void MainWindow::SetButtonD(CustomButton *button, Data *data)
     button->setQuantity(data->quantity);
 }
 
+void MainWindow::IsClickedSave(bool a)
+{
+    SaveButtonStatus = a;
+}
+
 MainWindow::~MainWindow()
 {
-    delete UpadteButtonData;
+    delete SwapButtonData;
     delete ui;
 }
 

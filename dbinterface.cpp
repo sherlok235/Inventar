@@ -4,23 +4,6 @@ DBInterface::DBInterface()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("newmydb.sqlite");
-  {//  AllData = new QVector<Data>;
-    // db.open();
-//    QSqlQuery q;
-//    size_t i =0;
-//    q.exec("SELECT * FROM items");
-//    while(q.next()){
-//        AllData->push_front( Data());
-//        AllData[i].data()->code = q.value(0).toInt();
-//        AllData[i].data()->name = q.value(1).toString();
-//        AllData[i].data()->description = q.value(2).toString();
-//        AllData[i].data()->quantity = q.value(3).toInt();
-//        AllData[i].data()->pathImg = q.value(4).toString();
-//    }
-
-//    q.clear();
-//    db.close();
-}
     UpdateDB();
 }
 
