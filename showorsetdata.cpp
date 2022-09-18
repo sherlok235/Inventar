@@ -13,6 +13,7 @@ ShowOrSetData::ShowOrSetData(QWidget *parent) :
     ui->img->setVisible(false);
     QObject::connect(this->ui->choseButton,SIGNAL(clicked()),this,SLOT(chose()));
     QObject::connect(this->ui->saveButton,SIGNAL(clicked()),this,SLOT(save()));
+    setWindowTitle(QApplication::translate("toplevel", "Set Data"));
 
 }
 
