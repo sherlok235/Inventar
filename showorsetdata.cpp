@@ -10,6 +10,7 @@ ShowOrSetData::ShowOrSetData(QWidget *parent) :
     SaveIsCliked = false;
     mydata = new Data;
     ui->setupUi(this);
+    if (!image.isNull())
     ui->img->setVisible(false);
     QObject::connect(this->ui->choseButton,SIGNAL(clicked()),this,SLOT(chose()));
     QObject::connect(this->ui->saveButton,SIGNAL(clicked()),this,SLOT(save()));
@@ -38,7 +39,7 @@ void ShowOrSetData::chose()
         bool valid = image.load(fileName);
         if(valid){
         ui->img->setVisible(true);
-        ui->img->setPixmap(QPixmap::fromImage(image));
+        ui->img->setPixmap(QPixmap::fromImage(image).scaled(311,101));
         }
     }
 }
