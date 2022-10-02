@@ -76,4 +76,3 @@ Data *ShowOrSetData::getData()
  return mydata;
 }
 
-

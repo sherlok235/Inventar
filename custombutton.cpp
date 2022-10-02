@@ -74,25 +74,25 @@ CustomButton::CustomButton(QString ImgPath , QString Name , QString Code , QStri
 
 void CustomButton::setImage(QString image_path)
 {
-       AvatarImg = image_path;
+    AvatarImg = image_path;
 
-       QPixmap target = QPixmap(QSize(66,66));
-        target.fill(Qt::transparent);
+    QPixmap target = QPixmap(QSize(66,66));
+    target.fill(Qt::transparent);
 
-       QPixmap pixmap(image_path);
-       QPixmap scaled = pixmap.scaled(66, 66, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-       QBrush brush(scaled);
-        brush.setStyle(Qt::TexturePattern);
-        brush.setColor(QColor(255,255,255,28));
-       QPainter painter(&target);
-        painter.setRenderHint(QPainter::Antialiasing,true);
-        painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-        painter.setBrush(brush);
-        painter.drawRoundedRect(0, 0,66, 66, 100, 100);
+    QPixmap pixmap(image_path);
+    QPixmap scaled = pixmap.scaled(66, 66, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    QBrush brush(scaled);
+    brush.setStyle(Qt::TexturePattern);
+    brush.setColor(QColor(255,255,255,28));
+    QPainter painter(&target);
+    painter.setRenderHint(QPainter::Antialiasing,true);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.setBrush(brush);
+    painter.drawRoundedRect(0, 0,66, 66, 100, 100); //made image rounded
 
-       img->setPixmap(QPixmap::fromImage( target.toImage()));
+    img->setPixmap(QPixmap::fromImage( target.toImage()));
+    img->setStyleSheet("QLabel{border-radius: 33px;}");
 
-       img->setStyleSheet("QLabel{border-radius: 33px;}");
 }
 
 void CustomButton::setDescription_Info(QString name,QString code, QString description)
@@ -105,7 +105,10 @@ void CustomButton::setDescription_Info(QString name,QString code, QString descri
 
     this->name->setText(name);
     this->name->setFont(QFont("Times",13,QFont::Bold));
+
 }
+
+//          Simple setters
 
 void CustomButton::setQuantity(int quantity = 0)
 {

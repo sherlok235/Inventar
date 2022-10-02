@@ -5,7 +5,6 @@
 #include <QImage>
 #include <QString>
 #include "dbinterface.h"
-#include "custombutton.h"
 
 namespace Ui {
 class ShowOrSetData;
@@ -28,13 +27,13 @@ public:
 
 private slots:
 
-void chose();
-void save();
+    void chose();
+    void save();
 
 signals:
 
-void saveBtn_signal(Data * data);
-void SendStatusSave(bool);
+    void saveBtn_signal(Data * data);
+    void SendStatusSave(bool);
 private:
 
     Ui::ShowOrSetData *ui;

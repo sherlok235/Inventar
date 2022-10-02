@@ -15,10 +15,6 @@
 #include "dbinterface.h"
 #include "showorsetdata.h"
 #include "custombutton.h"
-#include "addbuttonwindow.h"
-
-
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,12 +25,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
     DBInterface IDB;
-    QListWidget * MyList;
-    ShowOrSetData * secondWindow = nullptr;
+    ShowOrSetData * secondWindow = nullptr;//   Destined to edit data
     Data * SwapButtonData;
+
+    QListWidget * MyList;
     QPushButton * AddButon, * DeletButton;
     QHBoxLayout * AddButtonLayout,* DeleteButtonLayout;
+
     bool SaveButtonStatus;
+
 public:
 
     MainWindow(QWidget *parent = nullptr);
@@ -44,13 +43,13 @@ public slots:
 
     void ShowInfoWindow();
     void ShowAddWindow();
-    void UpdateData(Data * data);
-    void AddNewData(Data * data);
-    void SetButtonD(CustomButton * button, Data * data);
+    void UpdateData(Data * data);// update data on the main window
+    void AddNewData(Data * data);// add new data on the main window
+    void SetButtonD(CustomButton * button, Data * data); //set for the button Y the data X
     void IsClickedSave(bool a);
 
-
 private:
+
     Ui::MainWindow *ui;
     void PutData(void);
 };

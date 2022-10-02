@@ -3,16 +3,21 @@
 
 #include <QRect>
 #include <QRegion>
+#include <QTranslator>
+
+#include "addbuttonwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     SaveButtonStatus = false;
     MyList = new QListWidget;
     AddButon = new QPushButton(MyList);
     AddButon->setFixedSize(70,70);
-    AddButon->setGeometry(QRect(MyList->width()-(-55),MyList->height()-(-25),70,70));
+    AddButon->setGeometry(QRect(MyList->width()-(-55),MyList->height()-(-15),70,70));
     QRect rect(0,0,69,69);
     QRegion region(rect,QRegion::Ellipse);
     AddButon->setMask(region);
@@ -26,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     delete img;
     connect(AddButon,SIGNAL(clicked()),this, SLOT(ShowAddWindow()));
+
     SwapButtonData = new Data;
 
     ui->setupUi(this);
@@ -34,14 +40,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     MyList->setSpacing(0);
     MyList->setParent(this);
-    MyList->setContentsMargins(0,0,0,0);
     MyList->setMinimumSize(this->size());
     MyList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     MyList->verticalScrollBar()->hide();
-
-
+    QWidget::setWindowTitle(tr("Main Window"));
 
 }
+
+
 void MainWindow::PutData(){
 
    const QVector<Data> * myData ;
@@ -51,8 +57,10 @@ void MainWindow::PutData(){
        if(!QFileInfo::exists(it->pathImg)){
            Pathimg = "img/poll.jpg";
        }else{
+
             Pathimg=it->pathImg;
        }
+
         CustomButton * button = new CustomButton(Pathimg,it->name,QString(std::to_string(it->code).c_str()),it->description,it->quantity);
         QListWidgetItem * itemN = new QListWidgetItem() ;
         itemN->setSizeHint(QSize(400,90));
@@ -60,9 +68,7 @@ void MainWindow::PutData(){
         MyList->setItemWidget(itemN,button);
         QObject::connect(button,SIGNAL(clicked()),this,SLOT(ShowInfoWindow()));
 
-
    }
-
 }
 
 void MainWindow::ShowInfoWindow()
@@ -99,9 +105,6 @@ void MainWindow::ShowAddWindow()
     SaveButtonStatus = false;
     }
     delete secondWindow;
-   // delete button;
-
-
 }
 
 void MainWindow::UpdateData(Data * data)
@@ -143,5 +146,3 @@ MainWindow::~MainWindow()
     delete SwapButtonData;
     delete ui;
 }
-
-

@@ -13,18 +13,23 @@
 class CustomButton : public QPushButton
 {
 private:
+
     QHBoxLayout * main_layout,* image_layout, * quantity_layout,* info_top_layout,* info_center_layout,
-    * info_bottom_layout,*info_and_image_layout;
+    * info_bottom_layout,*info_and_image_layout; //layouts for each needed widgets
     QVBoxLayout * info;
     QLabel * img,* name,* info_bar_code_img,* info_description,* info_code, * info_quantity;
     QSpacerItem * space;
     QString  code_bar_image,AvatarImg;
+
 public:
+
     CustomButton();
     CustomButton(QString ImgPath,QString Name,QString Code,QString Description , int Quantity);
+
     void setImage(QString path);
     void setDescription_Info(QString name ,QString code,QString description);
     void setQuantity(int quantity);
+
     QString getName();
     QString getDescription();
     QString getCode();

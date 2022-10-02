@@ -2,8 +2,8 @@
 #include <fstream>
 DBInterface::DBInterface()
 {
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("newmydb.sqlite");
+    db = QSqlDatabase::addDatabase("QSQLITE");//set type of DB
+    db.setDatabaseName("newmydb.sqlite");    // connect to my DB
     UpdateDB();
 }
 
