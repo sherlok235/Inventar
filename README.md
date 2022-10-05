@@ -32,4 +32,4 @@ If you will not chose a image the default image will be that image with cup of c
 ### Binnary files for windows is <a href="https://drive.google.com/file/d/1xnutIEdA-UC228ZxZcYh6HTyU1lUV6bi/view?usp=sharing" target="_blank">here</a>
 
 
-there are a zip archive , before download that archive  extract all file and run Project.exe
+there is an zip archive ,after download that archive extract all file and runs Project.exe
