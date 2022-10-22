@@ -29,7 +29,7 @@ If you want to create a new field (cell) you should be in the main window and pu
 
 If you will not chose a image the default image will be that image with cup of coffe
 
-### Binary files for windows is <a href="https://drive.google.com/file/d/1xnutIEdA-UC228ZxZcYh6HTyU1lUV6bi/view?usp=sharing" target="_blank">here</a>
+### Binary files for windows are <a href="https://drive.google.com/file/d/1xnutIEdA-UC228ZxZcYh6HTyU1lUV6bi/view?usp=sharing" target="_blank">here</a>
 
 
 there is an zip archive ,after download that archive extract all file and runs Project.exe
