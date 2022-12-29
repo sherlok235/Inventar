@@ -1,18 +1,18 @@
 # Inventar - this is a application that is created to enter the source.
-This app give you posibility to save a list of things like : alimentar products , hardware components and else object.
+This app give you posibility to save a list of things like : alimentar products, hardware components and else object.
 
 ## Select language
 ![image](https://user-images.githubusercontent.com/59393392/194103213-5d140481-e440-489d-8956-67ed7696ead4.png)
 
 
-From begining of program execution you should to chose your wanted language from proposed list , actualy you can chose from those languages: Russian, English, Roumain.
+From begining of program execution you should to chose your wanted language from proposed list, actualy you can chose from those languages: Russian, English, Romanian.
 
 
 ## Main Window
 
 ![image](https://user-images.githubusercontent.com/59393392/194099053-2610ac43-644e-4723-a32f-8abb8b6d1e06.png)
 
-There are all list with products , you can see it all if you will scroll down, here you can open a edit window for edit the data of each cell therefore if you want do this you should just click on the chosen cell.
+There are all list with products, you can see it all if you will scroll down, here you can open a edit window for edit the data of each cell therefore if you want do this you should just click on the chosen cell.
 
 ## Set Window
 
