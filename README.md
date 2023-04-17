@@ -1,4 +1,4 @@
-# Inventar - this is a application that is created to enter the source.
+# Inventar - this is an application that is created to enter the source.
 This app give you posibility to save a list of things like : alimentar products, hardware components and else object.
 
 ## Select language
