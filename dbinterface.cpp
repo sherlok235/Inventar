@@ -1,5 +1,5 @@
 #include "dbinterface.h"
-#include <fstream>
+
 DBInterface::DBInterface()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");//set type of DB
