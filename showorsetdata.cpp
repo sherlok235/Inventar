@@ -38,8 +38,8 @@ void ShowOrSetData::chose()
         QImage image ;
         bool valid = image.load(fileName);
         if(valid){
-        ui->img->setVisible(true);
-        ui->img->setPixmap(QPixmap::fromImage(image).scaled(311,101));
+            ui->img->setVisible(true);
+            ui->img->setPixmap(QPixmap::fromImage(image).scaled(311,101));
         }
     }
 }
@@ -73,6 +73,6 @@ QString ShowOrSetData::getImage()
 
 Data *ShowOrSetData::getData()
 {
- return mydata;
+    return mydata;
 }
 

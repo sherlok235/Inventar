@@ -32,7 +32,7 @@ bool DBInterface::addData(const int code, const QString name, const QString desc
 
 bool DBInterface::addData(const Data MyData)
 {
-return addData(MyData.code,MyData.name,MyData.description,MyData.quantity,MyData.pathImg);
+    return addData(MyData.code,MyData.name,MyData.description,MyData.quantity,MyData.pathImg);
 }
 
 const QVector<Data> * DBInterface::getAllData()
